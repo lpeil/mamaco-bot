@@ -28,7 +28,7 @@ bot.on('message', msg => {
 function playMamaco(voiceChannel) {
   voiceChannel.join().then(connection => {
     console.log('mamaco play')
-    connection.playFile('./mamaco.mp3');
+    connection.playFile('./medias/mamaco.mp3');
     
     setTimeout(() => {
       voiceChannel.leave();
