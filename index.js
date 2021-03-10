@@ -1,9 +1,11 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const path = require("path");
+const ytdl = require('ytdl-core')
 
 const TOKEN = process.env.TOKEN;
+
+const streamOptions = { seek: 0, volume: 1 };
 
 bot.login(TOKEN);
 
@@ -28,7 +30,9 @@ bot.on('message', msg => {
 
 function playMamaco(voiceChannel) {
   voiceChannel.join().then(connection => {
-    const dispatcher = connection.play(path.join(__dirname, './medias/mamaco.mp3'));
+    const stream = ytdl('https://youtu.be/NBQBlmyHEso', { filter : 'audioonly' });
+
+    const dispatcher = connection.play(stream, streamOptions);
     
     dispatcher.on('start', () => {
       dispatcher.setVolume(0.90);
