@@ -9,17 +9,29 @@ bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 });
 
-bot.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-    msg.channel.send('pong');
+bot.on('voiceStateUpdate', (oldState, newState) => { 
+  const voiceChannel = newState.voiceChannel;
+  const oldChannel = oldState.voiceChannel;
 
-  } else if (msg.content.startsWith('!kick')) {
-    if (msg.mentions.users.size) {
-      const taggedUser = msg.mentions.users.first();
-      msg.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    } else {
-      msg.reply('Please tag a valid user!');
-    }
-  }
+  if(voiceChannel && newState.user.id != 819188029657710604 && oldChannel === undefined) {
+    playMamaco(voiceChannel)
+  }  
 });
+
+bot.on('message', msg => { 
+  if(msg.content === 'mamaco') {
+    const voiceChannel = msg.member.voiceChannel
+    playMamaco(voiceChannel)
+  }  
+});
+
+function playMamaco(voiceChannel) {
+  voiceChannel.join().then(connection => {
+    console.log('mamaco play')
+    connection.playFile('./mamaco.mp3');
+    
+    setTimeout(() => {
+      voiceChannel.leave();
+    }, 15000)
+  }).catch(err => console.log(err))
+}
