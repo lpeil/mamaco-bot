@@ -12,28 +12,35 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => { 
-  const voiceChannel = newState.voiceChannel;
-  const oldChannel = oldState.voiceChannel;
-
-  if(voiceChannel && newState.user.id != 819188029657710604 && oldChannel === undefined) {
+  const voiceChannel = newState.member.voice.channel;
+  
+  if(voiceChannel && newState.member.id != 819188029657710604 && oldState.channelID === null) {
     playMamaco(voiceChannel)
-  }  
+  } 
 });
 
 bot.on('message', msg => { 
   if(msg.content === 'mamaco') {
-    const voiceChannel = msg.member.voiceChannel
+    const voiceChannel = msg.member.voice.channel
     playMamaco(voiceChannel)
   }  
 });
 
 function playMamaco(voiceChannel) {
   voiceChannel.join().then(connection => {
-    console.log('mamaco play')
-    connection.playFile(path.join(__dirname, './medias/mamaco.mp3'));
+    const dispatcher = connection.play(path.join(__dirname, './medias/mamaco.mp3'));
     
-    setTimeout(() => {
+    dispatcher.on('start', () => {
+      dispatcher.setVolume(0.90);
+      console.log("Playing mamaco");
+    }); 
+
+    dispatcher.on('error', (err) => console.log(err));
+
+    dispatcher.on('finish', () => { 
+      console.log("Stop mamaco");
       voiceChannel.leave();
-    }, 15000)
+    });
+
   }).catch(err => console.log(err))
 }

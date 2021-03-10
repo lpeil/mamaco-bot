@@ -8,7 +8,7 @@
   "author": "lpeil",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "discord.js": "12.5.1",
     "dotenv": "^8.2.0",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.2.7",
