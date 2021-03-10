@@ -1,6 +1,8 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const path = require("path");
+
 const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
@@ -28,7 +30,7 @@ bot.on('message', msg => {
 function playMamaco(voiceChannel) {
   voiceChannel.join().then(connection => {
     console.log('mamaco play')
-    connection.playFile('./medias/mamaco.mp3');
+    connection.playFile(path.join(__dirname, './medias/mamaco.mp3'));
     
     setTimeout(() => {
       voiceChannel.leave();
