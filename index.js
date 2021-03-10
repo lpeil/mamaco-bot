@@ -2,9 +2,9 @@ require('dotenv').config();
 const Discord = require('discord.js');
 
 const services = {
-  enter: require('./services/enter'),
   data: require('./services/data'),
   readMessage: require('./services/readMessage'),
+  salutation: require('./services/salutation'),
   playSound: require('./services/playSound'),
 }
 
@@ -21,7 +21,7 @@ const start = async () => {
     content.botId = content.bot.user.id
   });
 
-  services.enter(content, services);
+  services.salutation(content, services);
   services.readMessage(content, services);
 }
 
