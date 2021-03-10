@@ -1,12 +1,13 @@
-const ytdl = require('ytdl-core');
+const ytdl = require('ytdl-core-discord');
 
-const streamOptions = { seek: 0, volume: 1 };
+const streamOptions = { seek: 0, volume: 1, type: 'opus' };
 
 function playSound(voiceChannel, video) {
-  voiceChannel.join().then(connection => {
-    const stream = ytdl(video, { filter : 'audioonly' });
-
-    const dispatcher = connection.play(stream, streamOptions);
+  voiceChannel.join().then(async (connection) => {
+    const dispatcher = await connection.play(
+      await ytdl(video, { filter : 'audioonly' }), 
+      streamOptions
+    );
     
     dispatcher.on('start', () => {
       dispatcher.setVolume(0.90);
