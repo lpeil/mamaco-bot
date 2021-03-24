@@ -10,14 +10,12 @@ const services = {
   news: require('./services/news'),
 }
 
-const content;
+const content = {
+  token: process.env.TOKEN,
+  bot: new Discord.Client()
+};
 
 const start = async () => {
-  content = {
-    token: process.env.TOKEN,
-    bot: new Discord.Client()
-  }
-
   content.bot.login(content.token)
 
   content.bot.on('ready', () => {
@@ -29,6 +27,6 @@ const start = async () => {
   services.readMessage(content, services);
 }
 
-cron.schedule('02 17 * * *', () => services.news(content))
+cron.schedule('05 17 * * *', () => services.news(content))
 
 start();
