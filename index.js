@@ -6,6 +6,7 @@ const services = {
   readMessage: require('./services/readMessage'),
   salutation: require('./services/salutation'),
   playSound: require('./services/playSound'),
+  news: require('./services/news'),
 }
 
 const start = async () => {
@@ -19,6 +20,8 @@ const start = async () => {
   content.bot.on('ready', () => {
     console.info(`Logged in as ${content.bot.user.tag}!`);
     content.botId = content.bot.user.id
+
+    services.news(content);
   });
 
   services.salutation(content, services);
