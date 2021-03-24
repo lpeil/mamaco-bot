@@ -2,7 +2,6 @@ const axios = require('axios');
 require('dotenv').config();
 
 const url = "https://newsapi.org/v2/top-headlines?country=br&category=entertainment&pageSize=5&apiKey=";
-const oneDayInMs = 1000 * 60 * 60 * 24;
 const apiKey = process.env.NEWS_API_KEY;
 const newsChatId = "824358432760791060";
 
@@ -22,8 +21,6 @@ const startNews = async (content) => {
         }
       }
     })
-
-  setTimeout(() => startNews(content), [oneDayInMs])
 }
 
 module.exports = startNews;

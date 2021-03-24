@@ -1,5 +1,6 @@
-require('dotenv').config();
+const cron = require('node-cron');
 const Discord = require('discord.js');
+require('dotenv').config();
 
 const services = {
   data: require('./services/data'),
@@ -9,8 +10,10 @@ const services = {
   news: require('./services/news'),
 }
 
+const content;
+
 const start = async () => {
-  const content = {
+  content = {
     token: process.env.TOKEN,
     bot: new Discord.Client()
   }
@@ -20,12 +23,12 @@ const start = async () => {
   content.bot.on('ready', () => {
     console.info(`Logged in as ${content.bot.user.tag}!`);
     content.botId = content.bot.user.id
-
-    services.news(content);
   });
 
   services.salutation(content, services);
   services.readMessage(content, services);
 }
+
+cron.schedule('02 17 * * *', () => services.news(content))
 
 start();
