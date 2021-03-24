@@ -27,6 +27,6 @@ const start = async () => {
   services.readMessage(content, services);
 }
 
-cron.schedule('05 17 * * *', () => services.news(content))
+cron.schedule(process.env.NEWS_CRON, () => services.news(content))
 
 start();
