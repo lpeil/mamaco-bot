@@ -19,6 +19,7 @@ const start = async () => {
 
   content.bot.on('ready', () => {
     console.info(`Logged in as ${content.bot.user.tag}!`);
+    console.info(`Logged in at ${new Date().toLocaleString('en-BG')}!`);
     content.botId = content.bot.user.id
   });
 

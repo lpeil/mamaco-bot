@@ -9,7 +9,7 @@ const startNews = async (content) => {
   const categories = getCategories()   
 
   for (const category of categories) {
-    setCronNews(category, channel)
+    setCronNews(category, channel);
   }
 }
   
