@@ -34,7 +34,6 @@ const checkArticles = async (category, articles, channel) => {
 const sendArticleIntoChannel = async (category, article, channel) => {
   return await channel.send(
     `[${category.name}] ${article.title} \n ${article.url}`,
-    {files: [article.urlToImage]}
   )
 }
 
@@ -42,7 +41,6 @@ const getCategories = () => {
   return [
     { id: 'entertainment', name: 'Entretenimento'},
     { id: 'business', name: 'Negócios'},
-    { id: 'general', name: 'Geral'},
     { id: 'health', name: 'Saúde'},
     { id: 'science', name: 'Ciência'},
     { id: 'sports', name: 'Esportes'},
