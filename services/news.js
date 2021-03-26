@@ -1,3 +1,4 @@
+const cron = require('node-cron');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -7,9 +8,13 @@ const startNews = async (content) => {
   const channel = await content.bot.channels.fetch(newsChatId);
   const categories = getCategories()   
 
-  for(const category of categories) {
-    getNewsFromCategory(category, channel);
+  for (const category of categories) {
+    setCronNews(category, channel)
   }
+}
+  
+const setCronNews = (category, channel) => {
+  cron.schedule(category.time, () => getNewsFromCategory(category, channel))
 }
 
 const getNewsFromCategory = async (category, channel) => {
@@ -33,18 +38,18 @@ const checkArticles = async (category, articles, channel) => {
 
 const sendArticleIntoChannel = async (category, article, channel) => {
   return await channel.send(
-    `[${category.name}] ${article.title} \n ${article.url}`,
+    `[${category.name}] ${article.title} \n ${article.url}`
   )
 }
 
 const getCategories = () => {
   return [
-    { id: 'entertainment', name: 'Entretenimento'},
-    { id: 'business', name: 'Negócios'},
-    { id: 'health', name: 'Saúde'},
-    { id: 'science', name: 'Ciência'},
-    { id: 'sports', name: 'Esportes'},
-    { id: 'technology', name: 'Têcnologia'},
+    { id: 'entertainment', name: 'Entretenimento', time: '00 15 * * *'},
+    { id: 'business', name: 'Negócios', time: '30 11 * * *'},
+    { id: 'health', name: 'Saúde', time: '00 09 * * *'},
+    { id: 'science', name: 'Ciência', time: '00 16 * * *'},
+    { id: 'sports', name: 'Esportes', time: '00 12 * * *'},
+    { id: 'technology', name: 'Têcnologia', time: '00 14 * * *'},
   ]
 }
 

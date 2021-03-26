@@ -1,4 +1,3 @@
-const cron = require('node-cron');
 const Discord = require('discord.js');
 require('dotenv').config();
 
@@ -25,8 +24,7 @@ const start = async () => {
 
   services.salutation(content, services);
   services.readMessage(content, services);
+  services.news(content)
 }
-
-cron.schedule(process.env.NEWS_CRON, () => services.news(content))
 
 start();
