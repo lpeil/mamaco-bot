@@ -21,11 +21,12 @@ const start = async () => {
     console.info(`Logged in as ${content.bot.user.tag}!`);
     console.info(`Logged in at ${new Date().toLocaleString('en-BG')}!`);
     content.botId = content.bot.user.id
+    
+    services.news(content)
   });
 
   services.salutation(content, services);
   services.readMessage(content, services);
-  services.news(content)
 }
 
 start();

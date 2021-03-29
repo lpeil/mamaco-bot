@@ -46,7 +46,7 @@ const getCategories = () => {
   return [
     { id: 'entertainment', name: 'Entretenimento', time: '00 15 * * *'},
     { id: 'business', name: 'Negócios', time: '30 11 * * *'},
-    { id: 'health', name: 'Saúde', time: '00 09 * * *'},
+    { id: 'health', name: 'Saúde', time: '00 10 * * *'},
     { id: 'science', name: 'Ciência', time: '00 16 * * *'},
     { id: 'sports', name: 'Esportes', time: '00 12 * * *'},
     { id: 'technology', name: 'Têcnologia', time: '00 14 * * *'},
